@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context	http://www.springframework.org/schema/context/spring-context-4.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd" 
+       xmlns:aop="http://www.springframework.org/schema/aop">
+
+
+    <!-- URL builders -->
+    <bean id="SybaseWindowsInterfacesReader" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.sybase.WindowsSybaseInterfacesFileReader" scope="singleton">
+        <property name="interfacesFilePath" value="w:\appls\datamgmt\sybase\oc1550\ini\sql.ini" />
+    </bean>
+    <bean id="SybaseUnixInterfacesReader" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.sybase.UnixSybaseInterfacesFileReader" scope="singleton" >
+        <property name="interfacesFilePath" value="/home/aar1069/sybase/interfaces" />
+    </bean>
+    <alias name="SybaseWindowsInterfacesReader" alias="SybaseInterfacesReader" />
+    
+    <bean id="SybaseURLBuilder" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.JConnectConnectionURLBuilder" scope="singleton">
+        <property name="interfacesReader" ref="SybaseInterfacesReader" />
+    </bean>
+    
+    <bean id="UDBURLBuilder" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.DB2ConnectionURLBuilder" scope="singleton">
+        <property name="protocolString" value="db2" />
+    </bean>
+    
+    <bean id="MySQLURLBuilder" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.MySQLConnectionURLBuilder" scope="singleton" >
+        <property name="defaultConnectionPort" value="3306" />
+    </bean>
+    
+    <bean id="ODBCURLBuilder" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.SimpleProtocolConnectionURLBuilder" scope="singleton" >
+        <property name="protocolString" value="odbc" />
+    </bean>
+    
+    <!-- server types -->
+    <bean id="SybaseServerTypeDescriptor" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptor" scope="singleton">
+        <property name="jDBCDriverClassName" value="com.sybase.jdbc4.jdbc.SybDriver" />
+        <property name="serverTypeName" value="Sybase" />
+        <property name="configurationProperties">
+            <props>
+                <prop key="charset">utf8</prop>
+            </props>
+        </property>
+        <property name="urlBuilder" ref="SybaseURLBuilder" />
+        <property name="objectDataAccess" ref="sybaseObjectDataAccess" />
+    </bean>
+    
+    <bean id="SybaseODBCServerTypeDescriptor" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptor" scope="singleton">
+        <property name="jDBCDriverClassName" value="sun.jdbc.odbc.JdbcOdbcDriver" />
+        <property name="serverTypeName" value="SybaseODBC" />
+        <property name="urlBuilder" ref="ODBCURLBuilder" />
+        <property name="objectDataAccess" ref="sybaseObjectDataAccess" />
+    </bean>
+    
+    <bean id="UDBServerTypeDescriptor" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptor" scope="singleton">
+        <property name="jDBCDriverClassName" value="com.ibm.db2.jcc.DB2Driver" />
+        <property name="serverTypeName" value="UDB" />
+        <property name="urlBuilder" ref="UDBURLBuilder" />
+        <property name="objectDataAccess" ref="udbObjectDataAccess" />
+    </bean>
+    
+    <bean id="MySQLServerTypeDescriptor" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptor" scope="singleton">
+        <property name="jDBCDriverClassName" value="com.mysql.cj.jdbc.Driver" />
+        <property name="serverTypeName" value="MySQL" />
+        <property name="configurationProperties">
+            <props>
+                <prop key="useSSL">true</prop>
+                <prop key="verifyServerCertificate">false</prop>
+            </props>
+        </property>
+        <property name="urlBuilder" ref="MySQLURLBuilder" />
+        <property name="objectDataAccess" ref="mysqlObjectDataAccess" />
+    </bean>
+    
+    <!-- descriptor array -->
+    <bean id="ServerTypeDescriptorCollection" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptorCollection" scope="singleton">
+        <property name="descriptorCollection">
+            <list>
+                <ref bean="SybaseServerTypeDescriptor" />
+                <ref bean="SybaseODBCServerTypeDescriptor" /> <!-- include this type because the JConnect driver sometimes has weird behavior and so this allows ODBC. --> 
+                <ref bean="UDBServerTypeDescriptor" />
+                <ref bean="MySQLServerTypeDescriptor" />
+            </list>
+        </property>
+    </bean>
+    
+    <!-- connection manager -->    
+    <alias alias="ConnectionManager" name="connectionManagerImplCryptoFile" />
+    
+    <!-- object data access manager -->
+    <alias alias="ObjectDataAccessManager" name="objectDataAccessManagerImpl" />
+    
+    <!-- connection profile manager -->
+    <bean id="ConnectionProfileSaveFile" class="java.io.File">
+        <constructor-arg index="0" value="${user.home}" />
+        <constructor-arg index="1" value="BlazarSQL.profiles" />
+    </bean>
+    
+    <!-- result set writers. -->
+    <bean id="HTMLResultSetWriter" class="com.blazartech.products.blazarsql.components.writer.impl.HTMLResultSetWriter" scope="singleton" />
+    <bean id="CSVResultSetWriter" class="com.blazartech.products.blazarsql.components.writer.impl.DelimitedTextResultSetWriter" scope="singleton">
+        <property name="fieldDelimiter" value="," />
+    </bean>
+    <bean id="ResultSetWriterFactoryImpl" class="com.blazartech.products.blazarsql.components.writer.impl.ResultSetWriterFactoryImpl" scope="singleton">
+        <property name="writerMap">
+            <map>
+                <entry key="HTML" value-ref="HTMLResultSetWriter" />
+                <entry key="CSV" value-ref="CSVResultSetWriter" />
+            </map>
+        </property>
+    </bean>
+    
+    <alias alias="ResultSetWriterFactory" name="ResultSetWriterFactoryImpl" />
+    
+
+    
+</beans>
