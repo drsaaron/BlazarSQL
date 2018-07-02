@@ -1,4 +1,4 @@
 #! /bin/ksh
 
-getDependencies.sh
+mvn clean install
 docker build -t blazarsql .
