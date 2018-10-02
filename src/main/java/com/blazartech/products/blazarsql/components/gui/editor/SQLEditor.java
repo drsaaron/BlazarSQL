@@ -8,22 +8,25 @@ import javax.swing.JEditorPane;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 
 /**
- * base class for an editor of SQL code.  All methods are implemented, and thus
- * the object as defined is usable.  But it is expected that derived will provide
+ * base class for an editor of SQL code. All methods are implemented, and thus
+ * the object as defined is usable. But it is expected that derived will provide
  * unique functionality.
- * 
+ *
  * @author aar1069
  * @version $Id: SQLEditor.java 30 2015-04-23 19:52:54Z aar1069 $
  */
 
 /* $Log$
  *******************************************************************************/
-public abstract class SQLEditor extends JEditorPane {
+public abstract class SQLEditor extends JEditorPane implements InitializingBean {
 
     private final EditorUndoableEventListener undoEventListener;
-    
+
     private boolean undoable;
     public static final String PROP_UNDOABLE = "undoable";
 
@@ -36,7 +39,7 @@ public abstract class SQLEditor extends JEditorPane {
         this.undoable = undoable;
         firePropertyChange(PROP_UNDOABLE, oldUndoable, undoable);
     }
-    
+
     private boolean redoable;
     public static final String PROP_REDOABLE = "redoable";
 
@@ -59,7 +62,6 @@ public abstract class SQLEditor extends JEditorPane {
         this.redoable = redoable;
         firePropertyChange(PROP_REDOABLE, oldRedoable, redoable);
     }
-    
 
     private final UndoManager undoManager = new UndoManager();
 
@@ -70,15 +72,14 @@ public abstract class SQLEditor extends JEditorPane {
     protected void updateUndoStatus() {
         setUndoable(getUndoManager().canUndo());
     }
-    
+
     protected void updateRedoStatus() {
         setRedoable(getUndoManager().canRedo());
     }
-    
+
     public SQLEditor() {
         super();
         undoEventListener = new EditorUndoableEventListener(this);
-        getDocument().addUndoableEditListener(undoEventListener);
     }
 
     @Override
@@ -107,7 +108,8 @@ public abstract class SQLEditor extends JEditorPane {
 
     /**
      * get the selected SQL code
-     * @return 
+     *
+     * @return
      */
     public String getSQLCode() {
         String sql = getSelectedText();
@@ -116,29 +118,38 @@ public abstract class SQLEditor extends JEditorPane {
 
     /**
      * set the SQL code in the editor.
-     * 
-     * @param SQLCode 
+     *
+     * @param SQLCode
      */
     public void setSQLCode(String SQLCode) {
         setText(SQLCode);
     }
 
-    /** Undo the latest change in the editor.
+    /**
+     * Undo the latest change in the editor.
+     *
      * @throws CannotUndoException if there is an error undoing the change.
-     */    
+     */
     public void undoChange() throws CannotUndoException {
         undoManager.undo();
         updateUndoStatus();
         updateRedoStatus();
     }
-    
-    /** Redo the last undo.
+
+    /**
+     * Redo the last undo.
+     *
      * @throws CannotRedoException if there is an error redoing the change.
-     */    
+     */
     public void redoChange() throws CannotRedoException {
         undoManager.redo();
         updateUndoStatus();
         updateRedoStatus();
     }
     
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        getDocument().addUndoableEditListener(undoEventListener);
+    }
+
 }
