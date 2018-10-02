@@ -53,7 +53,7 @@ class EditorHierarchyChangeListener implements HierarchyListener {
 
     @Override
     public void hierarchyChanged(HierarchyEvent e) {
-        logger.info("got hierarchy event " + e);
+        logger.debug("got hierarchy event " + e);
         long changeFlags = e.getChangeFlags();
         checkEventType(changeFlags, PARENT_CHANGED, "parent changed");
         checkEventType(changeFlags, ANCESTOR_MOVED, "ancestor moved");
@@ -61,17 +61,17 @@ class EditorHierarchyChangeListener implements HierarchyListener {
         checkEventType(changeFlags, HIERARCHY_CHANGED, "hierarchy changed");
         checkEventType(changeFlags, SHOWING_CHANGED, "showing changed");
         if ((changeFlags & PARENT_CHANGED) == PARENT_CHANGED) {
-            logger.info("changed parent = " + e.getChangedParent());
+            logger.debug("changed parent = " + e.getChangedParent());
             // detect if we've been added to a scroll pane
             if (e.getChangedParent() instanceof JViewport) {
                 // we only need to initialize the kit once.
                 if (!initialized) {
-                    logger.info("initializing the syntax kit");
+                    logger.debug("initializing the syntax kit");
                     DefaultSyntaxKit.initKit();
                     initialized = true;
                 }
                 // set content type to text/sql to get the syntax highlighting
-                logger.info("setting content type");
+                logger.debug("setting content type");
                 final SQLEditorJSyntaxPaneImpl editor = (SQLEditorJSyntaxPaneImpl) e.getComponent();
                 editor.setContentType("text/sql");
                 
@@ -80,16 +80,16 @@ class EditorHierarchyChangeListener implements HierarchyListener {
                  * set, and that's done by setting the content type.
                  */
                 editor.getDocument().addUndoableEditListener((UndoableEditEvent e1) -> {
-                    logger.info("updating undo/redo status.");
+                    logger.debug("updating undo/redo status.");
                     editor.setUndoable(e1.getEdit().canUndo());
                     editor.setRedoable(e1.getEdit().canRedo());
                 });
             }
         } else if ((changeFlags & SHOWING_CHANGED) == SHOWING_CHANGED) {
             if (e.getComponent().isShowing()) {
-                logger.info("component is showing");
+                logger.debug("component is showing");
             } else {
-                logger.info("component is not showing");
+                logger.debug("component is not showing");
             }
             //TODO: find a way to remove the line number bar when the
             // editor is no longer showing.
