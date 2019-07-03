@@ -81,6 +81,10 @@ public class ConnectionProfile implements Comparable<ConnectionProfile>, Seriali
     
     @Override
     public String toString() {
-        return getUserID() + "/" + getServerName();
+	String s = getUserID() + "/" + getServerName();
+	if (getDatabaseName() != null) {
+	    s += " (" + getDatabaseName() + ")";
+	}
+	return s;
     }
 }
