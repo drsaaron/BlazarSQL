@@ -5,12 +5,12 @@
 package com.blazartech.products.blazarsql.components.gui.editor.jsyntax;
 
 import com.blazartech.products.blazarsql.components.gui.editor.SQLEditor;
+import de.sciss.syntaxpane.SyntaxDocument;
 import java.awt.Font;
 import java.awt.event.HierarchyListener;
 import javax.swing.text.Document;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
-import jsyntaxpane.SyntaxDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;

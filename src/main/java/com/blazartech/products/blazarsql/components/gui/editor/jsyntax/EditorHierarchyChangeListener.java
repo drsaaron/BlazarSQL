@@ -4,11 +4,11 @@
  */
 package com.blazartech.products.blazarsql.components.gui.editor.jsyntax;
 
+import de.sciss.syntaxpane.DefaultSyntaxKit;
 import java.awt.event.HierarchyEvent;
 import java.awt.event.HierarchyListener;
 import javax.swing.JViewport;
 import javax.swing.event.UndoableEditEvent;
-import jsyntaxpane.DefaultSyntaxKit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
