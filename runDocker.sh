@@ -2,7 +2,7 @@
 
 # run the docker container, based on https://fredrikaverpil.github.io/2016/07/31/docker-for-mac-and-gui-applications/
 XSOCK=/tmp/.X11-unix
-ip=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+ip=$(ifconfig wlo1 | grep inet | awk '$1=="inet" {print $2}')
 xhost + $ip
 
 # find the crypto file.
