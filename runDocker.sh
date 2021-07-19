@@ -1,4 +1,4 @@
-#! /bin/ksh
+#! /bin/sh
 
 # run the docker container, based on https://fredrikaverpil.github.io/2016/07/31/docker-for-mac-and-gui-applications/
 XSOCK=/tmp/.X11-unix
@@ -15,6 +15,6 @@ prefDir=~/.java
 [ -d $prefDir ] || mkdir $prefDir
 
 # run the container
-docker run -it -v $XSOCK:$XSOCK -e DISPLAY=$ip:0 -v $HOME/BlazarSQL.profiles:/root/BlazarSQL.profiles -v $HOME/.blazartech:/root/.blazartech -v $HOME/.blazartech/crypto:$cryptoFilePath -v $prefDir:/root/.java blazarsql
+docker run -it -v $XSOCK:$XSOCK -e DISPLAY=$ip:0 -v $HOME/BlazarSQL.profiles:/root/BlazarSQL.profiles -v $HOME/.blazartech:/root/.blazartech -v $HOME/.blazartech/crypto:$cryptoFilePath -v $prefDir:/root/.java drsaaron/blazarsql
 
 

@@ -1,4 +1,7 @@
-#! /bin/ksh
+#! /bin/sh
 
-docker tag blazarsql drsaaron/blazarsql:latest
-docker push drsaaron/blazarsql:latest
+imageName=drsaaron/blazarsql
+version=$(getPomAttribute.sh version)
+imageVersion=$(echo $version | sed 's/-RELEASE//')
+
+docker push $imageName:$imageVersion
