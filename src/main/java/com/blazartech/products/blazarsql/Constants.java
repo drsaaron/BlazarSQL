@@ -16,6 +16,6 @@ public class Constants {
     
     public static final String PROGRAM_NAME = "BlazarSQL";
     public static final String PROGRAM_VERSION = "3.0";
-    public static final String COPYRIGHT_RANGE = "2002-2017";
+    public static final String COPYRIGHT_RANGE = "2002-2022";
     public static final String AUTHOR = "Dr. Scott E. Aaron";
 }

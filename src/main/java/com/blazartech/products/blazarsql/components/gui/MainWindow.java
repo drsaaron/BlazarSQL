@@ -27,7 +27,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.prefs.Preferences;
-import javax.inject.Provider;
+import jakarta.inject.Provider;
 import javax.swing.*;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;

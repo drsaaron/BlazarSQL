@@ -19,7 +19,7 @@ import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import javax.inject.Provider;
+import jakarta.inject.Provider;
 import javax.swing.*;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
