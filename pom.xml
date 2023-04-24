@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>BlazarSQL-new</artifactId>
-    <version>1.0.22-RELEASE</version>
+    <version>1.0.23-RELEASE</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -14,7 +14,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.4</version>
+        <version>3.0.6</version>
     </parent>
 
     <repositories>
@@ -23,6 +23,13 @@
             <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
             <url>file:${project.basedir}/lib</url>
         </repository>
+
+	<repository>
+            <id>nexus</id>
+            <name>my nexus</name>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+
     </repositories>
     
     <dependencies>
@@ -37,22 +44,22 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>BlazarSQL-databaseObjects</artifactId>
-            <version>1.16-RELEASE</version>
+            <version>1.17-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>FancyTab</artifactId>
-            <version>1.13-RELEASE</version>
+            <version>1.15-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>LookAndFeelManager</artifactId>
-            <version>1.14-RELEASE</version>
+            <version>1.16-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>ExceptionDisplay</artifactId>
-            <version>1.14-RELEASE</version>
+            <version>1.16-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>de.sciss</groupId>
@@ -87,7 +94,14 @@
             <version>1_0</version>
         </dependency>
     </dependencies>
-    
+
+    <distributionManagement>
+        <repository>
+            <id>nexus</id>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
