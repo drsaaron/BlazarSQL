@@ -30,6 +30,10 @@
         <property name="defaultConnectionPort" value="3306" />
     </bean>
     
+    <bean id="PostgresURLBuilder" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.PostgresConnectionURLBuilder" scope="singleton" >
+        <property name="defaultConnectionPort" value="5432" />
+    </bean>
+    
     <bean id="ODBCURLBuilder" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.SimpleProtocolConnectionURLBuilder" scope="singleton" >
         <property name="protocolString" value="odbc" />
     </bean>
@@ -74,6 +78,13 @@
         <property name="objectDataAccess" ref="mysqlObjectDataAccess" />
     </bean>
     
+    <bean id="PostgresServerTypeDescriptor" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptor" scope="singleton">
+        <property name="jDBCDriverClassName" value="org.postgresql.Driver" />
+        <property name="serverTypeName" value="Postgres" />
+        <property name="urlBuilder" ref="PostgresURLBuilder" />
+        <property name="objectDataAccess" ref="postgresObjectDataAccess" />
+    </bean>
+    
     <!-- descriptor array -->
     <bean id="ServerTypeDescriptorCollection" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptorCollection" scope="singleton">
         <property name="descriptorCollection">
@@ -82,6 +93,7 @@
                 <ref bean="SybaseODBCServerTypeDescriptor" /> <!-- include this type because the JConnect driver sometimes has weird behavior and so this allows ODBC. --> 
                 <ref bean="UDBServerTypeDescriptor" />
                 <ref bean="MySQLServerTypeDescriptor" />
+                <ref bean="PostgresServerTypeDescriptor" />
             </list>
         </property>
     </bean>
