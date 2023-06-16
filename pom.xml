@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>BlazarSQL-new</artifactId>
-    <version>1.0.26-RELEASE</version>
+    <version>1.0.27-RELEASE</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -49,17 +49,17 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>FancyTab</artifactId>
-            <version>1.17-RELEASE</version>
+            <version>1.18-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>LookAndFeelManager</artifactId>
-            <version>1.18-RELEASE</version>
+            <version>1.19-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>ExceptionDisplay</artifactId>
-            <version>1.18-RELEASE</version>
+            <version>1.19-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>de.sciss</groupId>
