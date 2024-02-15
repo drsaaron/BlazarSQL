@@ -5,9 +5,6 @@
 package com.blazartech.products.blazarsql.components.gui.editor.plain;
 
 import com.blazartech.products.blazarsql.components.gui.editor.SQLEditor;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 /**
  * a dumb implementation of the SQL editor, one that just uses the default behavior
@@ -19,9 +16,6 @@ import org.springframework.stereotype.Component;
 
 /* $Log$
  *******************************************************************************/
-@Component
-@Scope("prototype")
-@Profile("!syntaxpane")
 public class SQLEditorPlainImpl extends SQLEditor {
 
     public SQLEditorPlainImpl() {
