@@ -10,21 +10,17 @@ package com.blazartech.products.blazarsql.components.gui;
  *
  * @author  AAR1069
  */
-public final class ProcessingStage {
+public enum ProcessingStage {
+    
+    WAITING("Waiting"), RUNNING("running"), FORMATTING("formatting");
     
     /** Holds value of property name. */
-    private String name;
-    
-    public static final ProcessingStage WAITING = new ProcessingStage("Waiting");
-    
-    public static final ProcessingStage RUNNING = new ProcessingStage("running");
-    
-    public static final ProcessingStage FORMATTING = new ProcessingStage("formatting");
+    private final String name;
     
     /** Creates a new instance of ProcessingStage
      * @param name */
-    protected ProcessingStage(String name) {
-        setName(name);
+    private ProcessingStage(String name) {
+        this.name = name;
     }
     
     /** Getter for property name.
@@ -35,17 +31,5 @@ public final class ProcessingStage {
         return this.name;
     }
     
-    /** Setter for property name.
-     * @param name New value of property name.
-     *
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    @Override
-    public String toString() {
-        return getName();
-    }
     
 }

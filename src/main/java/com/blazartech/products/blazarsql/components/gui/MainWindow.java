@@ -982,8 +982,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
             logger.error("Caused by: ", causeE);
             causeE = causeE.getCause();
         }
-        if (e instanceof SQLException) {
-            SQLException sqlE = (SQLException) e;
+        if (e instanceof SQLException sqlE) {
             logger.error("SQL Exception: ", sqlE.getNextException());
         }
         
@@ -1194,7 +1193,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
      * database connection panel.  The status bar in the application will show the
      * current stage.
      */
-    public class ProcessingStageListener implements PropertyChangeListener {
+    private class ProcessingStageListener implements PropertyChangeListener {
         
         /** Handle the change in the processing stage.  The status bar message will be
          * updated accordingly.
@@ -1215,7 +1214,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         
     }
     
-    public class ComponentRepainter extends Thread {
+    private class ComponentRepainter extends Thread {
         
         /** Holds value of property component. */
         private JComponent component;
@@ -1243,7 +1242,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         
     }
     
-    public class EditorUndoRedoStateChangeListener implements PropertyChangeListener {
+    private class EditorUndoRedoStateChangeListener implements PropertyChangeListener {
         
         @Override
         public void propertyChange(PropertyChangeEvent evt) {

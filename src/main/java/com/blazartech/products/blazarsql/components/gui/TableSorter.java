@@ -150,8 +150,8 @@ public final class TableSorter extends AbstractTableModel {
         if (this.tableHeader != null) {
             this.tableHeader.removeMouseListener(mouseListener);
             TableCellRenderer defaultRenderer = this.tableHeader.getDefaultRenderer();
-            if (defaultRenderer instanceof SortableHeaderRenderer) {
-                this.tableHeader.setDefaultRenderer(((SortableHeaderRenderer) defaultRenderer).tableCellRenderer);
+            if (defaultRenderer instanceof SortableHeaderRenderer sortableHeaderRenderer) {
+                this.tableHeader.setDefaultRenderer(sortableHeaderRenderer.tableCellRenderer);
             }
         }
         this.tableHeader = tableHeader;

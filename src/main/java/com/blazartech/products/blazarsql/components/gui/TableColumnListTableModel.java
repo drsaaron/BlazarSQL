@@ -81,10 +81,12 @@ public class TableColumnListTableModel extends DefaultTableModel {
     public Object getValueAt(int row, int column) {
         TableColumnDescriptor d = _data.get(row);
         switch (column) {
-            case 0:
+            case 0 -> {
                 return d.getName();
-            case 1:
+            }
+            case 1 -> {
                 return d.getTypeName();
+            }
         }
         return null;
     }

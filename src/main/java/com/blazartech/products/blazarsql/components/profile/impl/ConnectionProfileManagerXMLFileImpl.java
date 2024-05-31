@@ -39,6 +39,7 @@ public class ConnectionProfileManagerXMLFileImpl extends ConnectionProfileManage
     @Qualifier("ConnectionProfileSaveFile")
     private File saveFile;
 
+    @Override
     public void afterPropertiesSet() throws Exception {
         loadProfiles();
     }

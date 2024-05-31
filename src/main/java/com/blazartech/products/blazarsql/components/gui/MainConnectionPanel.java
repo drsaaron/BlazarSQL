@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import jakarta.inject.Provider;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -80,8 +82,7 @@ public class MainConnectionPanel extends FancyTabbedPane implements Initializing
     
     private void formComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_formComponentAdded
         // Add your handling code here:
-        if (evt.getChild() instanceof DatabaseConnectionPanel) {
-            DatabaseConnectionPanel p = (DatabaseConnectionPanel) evt.getChild();
+        if (evt.getChild() instanceof DatabaseConnectionPanel p) {
             
             // Listen for status message changes.
             p.addPropertyChangeListener("statusMessage", _statusMessageChangeListener);
@@ -168,10 +169,10 @@ public class MainConnectionPanel extends FancyTabbedPane implements Initializing
         this.dividerInitialLocation = dividerInitialLocation;
     }
     
-    public class StatusMessageChangeHandler implements java.beans.PropertyChangeListener {
+    private class StatusMessageChangeHandler implements PropertyChangeListener {
         
         @Override
-        public void propertyChange(java.beans.PropertyChangeEvent evt) {
+        public void propertyChange(PropertyChangeEvent evt) {
             if (evt.getPropertyName().equals("statusMessage") && evt.getSource() == getSelectedComponent()) {
                 setStatusMessage((String) evt.getNewValue());
             }

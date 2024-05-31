@@ -52,9 +52,7 @@ public class SupportedDatabaseTypesModel extends DefaultComboBoxModel implements
             List<String> v = new ArrayList<>();
 
             Collection<String> supportedTypes = connectionManager.getSupportedServerTypes();
-            supportedTypes.stream().forEach((supportedType) -> {
-                v.add(supportedType);
-            });
+            v.addAll(supportedTypes);
             
             Collections.sort(v);
             return v;

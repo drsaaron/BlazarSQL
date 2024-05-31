@@ -99,7 +99,8 @@ public class ObjectTree extends JTree implements InitializingBean {
      */
     private DatabaseConnectionPanel databaseConnectionPanel;
     
-    /** Creates new form BeanForm */
+    /** Creates new form BeanForm
+     * @throws java.lang.Exception */
     @Override
     public void afterPropertiesSet() throws Exception {
         initComponents();
@@ -196,25 +197,27 @@ public class ObjectTree extends JTree implements InitializingBean {
             TreePath selPath = getPathForLocation(evt.getX(), evt.getY());
             if (selPath != null) {
                 switch (selPath.getPathCount()) {
-                    case 5: // an action command.
+                    case 5 -> {
+                        // an action command.
                         ObjectAction actionImpl = (ObjectAction) _actionMap.get(selPath.getLastPathComponent().toString());
                         actionImpl.raiseConnectionPanel();
                         setCursor(_waitCursor);
                         try {
                             actionImpl.doAction(selPath);
                             getDatabaseConnectionPanel().setLastExecutedQuery("<object browser query>");
-                        } catch (java.sql.SQLException e) {
+                        } catch (SQLException e) {
                             handleException(e);
                         }
                         setCursor(_defaultCursor);
-                        break;
-                    case 2: // User ID.  Check if the node has already been completed.
+                    }
+                    case 2 -> {
+                        // User ID.  Check if the node has already been completed.
                         DefaultMutableTreeNode node = (DefaultMutableTreeNode) selPath.getLastPathComponent();
                         if (node.getChildCount() == 0) {
                             completeUserNode(node);
                             expandPath(selPath);
                         }
-                        break;
+                    }
                 }
             }
             
