@@ -1090,9 +1090,9 @@ public final class MainWindow extends JFrame implements InitializingBean {
     
     /** Shutdown the application.  This will close all active connections. */
     public void shutdown() {
-        System.out.println("shutting down....");
+        logger.info("shutting down....");
         _mainPane.closeAllConnections();
-        System.out.println("exitting....");
+        logger.info("exitting....");
         System.exit(0);
     }
     
