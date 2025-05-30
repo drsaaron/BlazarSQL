@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.blazartech</groupId>
     <artifactId>BlazarSQL-new</artifactId>
-    <version>1.0.46-RELEASE</version>
+    <version>1.0.47-RELEASE</version>
     <packaging>jar</packaging>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -13,7 +13,7 @@
     <parent>
         <groupId>com.blazartech</groupId>
         <artifactId>blazarjavaparent</artifactId>
-        <version>1.7-RELEASE</version>
+        <version>1.9-RELEASE</version>
     </parent>
 
     <repositories>
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>BlazarSQL-databaseObjects</artifactId>
-            <version>1.36-RELEASE</version>
+            <version>1.37-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
@@ -53,12 +53,12 @@
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>LookAndFeelManager</artifactId>
-            <version>1.40-RELEASE</version>
+            <version>1.41-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>com.blazartech</groupId>
             <artifactId>ExceptionDisplay</artifactId>
-            <version>1.35-RELEASE</version>
+            <version>1.36-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>de.sciss</groupId>
