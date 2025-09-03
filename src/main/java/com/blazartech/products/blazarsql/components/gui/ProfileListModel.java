@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 /* $Log$
  *******************************************************************************/
 @Component
-public class ProfileListModel extends DefaultComboBoxModel implements InitializingBean, ConnectionProfileCollectionChangeListener {
+public class ProfileListModel extends DefaultComboBoxModel<ConnectionProfile> implements InitializingBean, ConnectionProfileCollectionChangeListener {
 
     private static final Logger logger = LoggerFactory.getLogger(ProfileListModel.class);
 

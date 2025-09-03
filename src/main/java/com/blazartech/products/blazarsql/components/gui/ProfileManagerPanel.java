@@ -37,7 +37,7 @@ public class ProfileManagerPanel extends JPanel implements InitializingBean {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        _profileList = new javax.swing.JList();
+        _profileList = new javax.swing.JList<>();
         jPanel1 = new javax.swing.JPanel();
         _deleteProfileButton = new javax.swing.JButton();
 
@@ -83,7 +83,7 @@ public class ProfileManagerPanel extends JPanel implements InitializingBean {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton _deleteProfileButton;
-    private javax.swing.JList _profileList;
+    private javax.swing.JList<ConnectionProfile> _profileList;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

@@ -109,9 +109,9 @@ public final class ConnectionParametersPanel extends JPanel implements Initializ
         _database = new javax.swing.JTextField();
         serverTypePanel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        _supportedTypesComboBox = new javax.swing.JComboBox();
+        _supportedTypesComboBox = new javax.swing.JComboBox<>();
         profilePanel = new javax.swing.JPanel();
-        _profileComboBox = new javax.swing.JComboBox();
+        _profileComboBox = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         _saveRequest = new javax.swing.JCheckBox();
         _defaultProfile = new javax.swing.JCheckBox();
@@ -452,11 +452,11 @@ public final class ConnectionParametersPanel extends JPanel implements Initializ
     private javax.swing.JTextField _database;
     private javax.swing.JPanel _databasePanel;
     private javax.swing.JCheckBox _defaultProfile;
-    private javax.swing.JComboBox _profileComboBox;
+    private javax.swing.JComboBox<ConnectionProfile> _profileComboBox;
     private javax.swing.JCheckBox _saveRequest;
     private javax.swing.JTextField _serverName;
     private javax.swing.JPanel _serverPanel;
-    private javax.swing.JComboBox _supportedTypesComboBox;
+    private javax.swing.JComboBox<String> _supportedTypesComboBox;
     private javax.swing.JTextField _userId;
     private javax.swing.JPanel _userIdPanel;
     private javax.swing.JLabel jLabel1;

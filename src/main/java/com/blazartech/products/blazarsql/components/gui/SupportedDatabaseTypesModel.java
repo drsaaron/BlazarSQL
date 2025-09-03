@@ -31,7 +31,7 @@ import org.springframework.stereotype.Component;
  *******************************************************************************/
 
 @Component
-public class SupportedDatabaseTypesModel extends DefaultComboBoxModel implements InitializingBean {
+public class SupportedDatabaseTypesModel extends DefaultComboBoxModel<String> implements InitializingBean {
     
     private static final Logger logger = LoggerFactory.getLogger(SupportedDatabaseTypesModel.class);
     
