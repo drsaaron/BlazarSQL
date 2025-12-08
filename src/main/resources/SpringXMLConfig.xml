@@ -9,19 +9,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop">
 
 
-    <!-- URL builders -->
-    <bean id="SybaseWindowsInterfacesReader" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.sybase.WindowsSybaseInterfacesFileReader" scope="singleton">
-        <property name="interfacesFilePath" value="w:\appls\datamgmt\sybase\oc1550\ini\sql.ini" />
-    </bean>
-    <bean id="SybaseUnixInterfacesReader" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.sybase.UnixSybaseInterfacesFileReader" scope="singleton" >
-        <property name="interfacesFilePath" value="/home/aar1069/sybase/interfaces" />
-    </bean>
-    <alias name="SybaseWindowsInterfacesReader" alias="SybaseInterfacesReader" />
-    
-    <bean id="SybaseURLBuilder" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.JConnectConnectionURLBuilder" scope="singleton">
-        <property name="interfacesReader" ref="SybaseInterfacesReader" />
-    </bean>
-    
+    <!-- URL builders -->    
     <bean id="UDBURLBuilder" class="com.blazartech.products.blazarsql.components.dataobjects.impl.connection.DB2ConnectionURLBuilder" scope="singleton">
         <property name="protocolString" value="db2" />
     </bean>
@@ -38,26 +26,7 @@
         <property name="protocolString" value="odbc" />
     </bean>
     
-    <!-- server types -->
-    <bean id="SybaseServerTypeDescriptor" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptor" scope="singleton">
-        <property name="jDBCDriverClassName" value="com.sybase.jdbc4.jdbc.SybDriver" />
-        <property name="serverTypeName" value="Sybase" />
-        <property name="configurationProperties">
-            <props>
-                <prop key="charset">utf8</prop>
-            </props>
-        </property>
-        <property name="urlBuilder" ref="SybaseURLBuilder" />
-        <property name="objectDataAccess" ref="sybaseObjectDataAccess" />
-    </bean>
-    
-    <bean id="SybaseODBCServerTypeDescriptor" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptor" scope="singleton">
-        <property name="jDBCDriverClassName" value="sun.jdbc.odbc.JdbcOdbcDriver" />
-        <property name="serverTypeName" value="SybaseODBC" />
-        <property name="urlBuilder" ref="ODBCURLBuilder" />
-        <property name="objectDataAccess" ref="sybaseObjectDataAccess" />
-    </bean>
-    
+    <!-- server types -->    
     <bean id="UDBServerTypeDescriptor" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptor" scope="singleton">
         <property name="jDBCDriverClassName" value="com.ibm.db2.jcc.DB2Driver" />
         <property name="serverTypeName" value="UDB" />
@@ -89,8 +58,6 @@
     <bean id="ServerTypeDescriptorCollection" class="com.blazartech.products.blazarsql.components.dataobjects.impl.ServerTypeDescriptorCollection" scope="singleton">
         <property name="descriptorCollection">
             <list>
-                <ref bean="SybaseServerTypeDescriptor" />
-                <ref bean="SybaseODBCServerTypeDescriptor" /> <!-- include this type because the JConnect driver sometimes has weird behavior and so this allows ODBC. --> 
                 <ref bean="UDBServerTypeDescriptor" />
                 <ref bean="MySQLServerTypeDescriptor" />
                 <ref bean="PostgresServerTypeDescriptor" />
