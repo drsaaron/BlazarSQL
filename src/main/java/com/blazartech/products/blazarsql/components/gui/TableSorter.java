@@ -93,7 +93,8 @@ public final class TableSorter extends AbstractTableModel {
     public static final int NOT_SORTED = 0;
     public static final int ASCENDING = 1;
     private static Directive EMPTY_DIRECTIVE = new Directive(-1, NOT_SORTED);
-    public static final Comparator<Object> COMPARABLE_COMAPRATOR = (Object o1, Object o2) -> ((Comparable) o1).compareTo((Comparable) o2);
+    @SuppressWarnings("unchecked")
+    public static final Comparator<Object> COMPARABLE_COMPARATOR = (Object o1, Object o2) -> ((Comparable) o1).compareTo((Comparable) o2);
     public static final Comparator<Object> LEXICAL_COMPARATOR = (Object o1, Object o2) -> o1.toString().compareTo(o2.toString());
     private Row[] viewToModel;
     private int[] modelToView;
@@ -227,7 +228,7 @@ public final class TableSorter extends AbstractTableModel {
             return comparator;
         }
         if (Comparable.class.isAssignableFrom(columnType)) {
-            return COMPARABLE_COMAPRATOR;
+            return COMPARABLE_COMPARATOR;
         }
         return LEXICAL_COMPARATOR;
     }

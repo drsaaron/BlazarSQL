@@ -33,6 +33,8 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.event.ChangeEvent;
+import javax.swing.undo.CannotRedoException;
+import javax.swing.undo.CannotUndoException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -411,7 +413,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
 
         editMenu.setText("Edit");
 
-        undoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_MASK));
+        undoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Z, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         undoMenuItem.setIcon(new ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Undo16.gif")));
         undoMenuItem.setText("Undo");
         undoMenuItem.setEnabled(false);
@@ -422,7 +424,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         });
         editMenu.add(undoMenuItem);
 
-        redoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_MASK));
+        redoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Y, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         redoMenuItem.setIcon(new ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Redo16.gif")));
         redoMenuItem.setText("Redo");
         redoMenuItem.setEnabled(false);
@@ -434,7 +436,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         editMenu.add(redoMenuItem);
         editMenu.add(jSeparator7);
 
-        cutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
+        cutMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         cutMenuItem.setIcon(new ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Cut16.gif")));
         cutMenuItem.setText("Cut");
         cutMenuItem.setEnabled(false);
@@ -445,7 +447,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         });
         editMenu.add(cutMenuItem);
 
-        copyMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        copyMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         copyMenuItem.setIcon(new ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Copy16.gif")));
         copyMenuItem.setText("Copy");
         copyMenuItem.setEnabled(false);
@@ -456,7 +458,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         });
         editMenu.add(copyMenuItem);
 
-        pasteMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_MASK));
+        pasteMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         pasteMenuItem.setIcon(new ImageIcon(getClass().getResource("/toolbarButtonGraphics/general/Paste16.gif")));
         pasteMenuItem.setText("Paste");
         pasteMenuItem.setEnabled(false);
@@ -468,7 +470,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         editMenu.add(pasteMenuItem);
         editMenu.add(jSeparator6);
 
-        selectAllMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_MASK));
+        selectAllMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         selectAllMenuItem.setText("Select All");
         selectAllMenuItem.setEnabled(false);
         selectAllMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -510,7 +512,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
 
         datasourceMenu.setText("Datasource");
 
-        openConnectionMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        openConnectionMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         openConnectionMenuItem.setText("Connect");
         openConnectionMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -571,7 +573,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
 
         queryMenu.setText("Query");
 
-        executeMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        executeMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         executeMenuItem.setIcon(new ImageIcon(getClass().getResource("/toolbarButtonGraphics/media/Play16.gif")));
         executeMenuItem.setText("Execute");
         executeMenuItem.setEnabled(false);
@@ -711,7 +713,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         // Add your handling code here:
         try {
             _mainPane.getActiveConnectionPanel().getEditor().redoChange();
-        } catch (Exception e) {
+        } catch (CannotRedoException e) {
             handleException(e);
         }
     }//GEN-LAST:event_redoMenuItemActionPerformed
@@ -720,7 +722,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         // Add your handling code here:
         try {
             _mainPane.getActiveConnectionPanel().getEditor().undoChange();
-        } catch (Exception e) {
+        } catch (CannotUndoException e) {
             handleException(e);
         }
     }//GEN-LAST:event_undoMenuItemActionPerformed
@@ -744,7 +746,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         try {
             DatabaseConnectionPanel p = _mainPane.getActiveConnectionPanel();
             _mainPane.addConnection(p.getDatabaseConnection().getUserID(), p.getDatabaseConnection().getServerName(), p.getDatabaseConnection().getDatabaseName(), p.getDatabaseConnection().getDatabaseTypeName());
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
             handleException(e);
         }
     }//GEN-LAST:event_cloneConnectionMenuItemActionPerformed
@@ -780,7 +782,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
     private void handleSaveQuery() {
         try {
             saveQuery();
-        } catch (Exception e) {
+        } catch (IOException e) {
             handleException(e);
         }
     }
@@ -793,7 +795,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
     private void handleOpenQuery() {
         try {
             openQuery();
-        } catch (Exception e) {
+        } catch (IOException e) {
             handleException(e);
         }
     }
@@ -807,7 +809,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         // Add your handling code here:
         try {
             saveQueryResultsAsCSV();
-        } catch (Exception e) {
+        } catch (IOException e) {
             handleException(e);
         }
     }//GEN-LAST:event_saveResultsAsCSVMenuItemActionPerformed
@@ -816,7 +818,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         // Add your handling code here:
         try {
             saveQueryResultsAsHTML();
-        } catch (Exception e) {
+        } catch (IOException e) {
             handleException(e);
         }
     }//GEN-LAST:event_saveResultsAsHtmlMenuItemActionPerformed
@@ -833,7 +835,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         // Add your handling code here:
         try {
             handleDatabaseConnectionInfo();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             handleException(e);
         }
     }//GEN-LAST:event_infoMenuItemActionPerformed
@@ -889,8 +891,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
     
     private void _mainPaneComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event__mainPaneComponentAdded
         // Add your handling code here:
-        if (evt.getChild() instanceof DatabaseConnectionPanel) {
-            DatabaseConnectionPanel p = (DatabaseConnectionPanel) evt.getChild();
+        if (evt.getChild() instanceof DatabaseConnectionPanel p) {
             updateEnabledMenuItems();
             p.addPropertyChangeListener("processingStage", _processingStageListener);
             p.getEditor().addPropertyChangeListener("undoable", _undoRedoStateListener);
@@ -909,7 +910,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         // Add your handling code here:
         try {
             _mainPane.closeActiveConnection();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             handleException(e);
         }
     }//GEN-LAST:event_disconnectMenuItemActionPerformed
@@ -919,7 +920,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
         try {
             setCursor(APP_WAIT_CURSOR);
             connectDatabase();
-        } catch (Exception e) {
+        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException e) {
             handleException(e);
         } finally {
             setCursor(APP_DEFAULT_CURSOR);
@@ -945,7 +946,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
     private void reconnectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reconnectMenuItemActionPerformed
         try {
             reconnectDatabase();
-        } catch (Exception ex) {
+        } catch (IOException | ClassNotFoundException | IllegalAccessException | InstantiationException | SQLException ex) {
             handleException(ex);
         }
     }//GEN-LAST:event_reconnectMenuItemActionPerformed
@@ -1077,7 +1078,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
     private void handleExecuteQuery() {
         try {
             executeQuery();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             handleException(e);
         }
     }
@@ -1184,7 +1185,7 @@ public final class MainWindow extends JFrame implements InitializingBean {
     public void cancelQuery() {
         try {
             _mainPane.getActiveConnectionPanel().cancelQuery();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             handleException(e);
         }
     }

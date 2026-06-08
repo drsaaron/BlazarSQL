@@ -78,6 +78,7 @@ public class ConnectionProfileManagerXMLFileImpl extends ConnectionProfileManage
         if (f.exists() && f.length() > 0) {
             try (FileInputStream is = new FileInputStream(f)) {
                 XMLDecoder dec = new XMLDecoder(is);
+                @SuppressWarnings("unchecked")
                 List<ConnectionProfile> profileList = (List<ConnectionProfile>) dec.readObject();
                 setProfiles(profileList);
             } catch (IOException e) {

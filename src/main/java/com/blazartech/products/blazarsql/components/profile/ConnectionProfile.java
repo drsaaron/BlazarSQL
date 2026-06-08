@@ -5,6 +5,7 @@
 package com.blazartech.products.blazarsql.components.profile;
 
 import java.io.Serializable;
+import java.util.Comparator;
 
 /**
  *
@@ -64,19 +65,11 @@ public class ConnectionProfile implements Comparable<ConnectionProfile>, Seriali
     
     @Override
     public int compareTo(ConnectionProfile o) {
-        if (getServerType().compareTo(o.getServerType()) == 0) {
-            if (getUserID().compareTo(o.getUserID()) == 0) {
-                if (getServerName().compareTo(o.getServerName()) == 0) {
-                    return getDatabaseName().compareTo(o.getDatabaseName());
-                } else {
-                    return getServerName().compareTo(o.getServerName());
-                }
-            } else {
-                return getUserID().compareTo(o.getUserID());
-            }
-        } else {
-            return getServerType().compareTo(o.getServerType());
-        }
+        return Comparator.comparing(ConnectionProfile::getServerType)
+                .thenComparing(ConnectionProfile::getUserID)
+                .thenComparing(ConnectionProfile::getServerName)
+                .thenComparing(ConnectionProfile::getDatabaseName)
+                .compare(this, o);
     }
     
     @Override
